@@ -258,6 +258,10 @@
     function init() {
       for (let i = 0; i < renderer_elements.length; i++) {
         let renderer_element = renderer_elements[i];
+        if (renderer_element.getElementsByTagName("canvas").length != 0) {
+          // Already initialized.
+          continue;
+        }
         let data = metadata[renderer_element.id];
         let path = data["path"];
         let renderer = new THREE.WebGLRenderer( { antialias: true } );
@@ -331,7 +335,6 @@
     }
 
     const imageDepthResizeObserver = new ResizeObserver((entries) => {
-      console.log("Resized");
       initComparisons();
     });
 
