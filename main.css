@@ -135,6 +135,8 @@ a:hover {
 	right: 20px;
 	bottom: -10px;
 	position: absolute;
+	text-align: right;
+	font-size: 80%;
 }
 
 .text-to-3d-video {
