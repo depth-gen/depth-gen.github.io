@@ -146,7 +146,8 @@ a:hover {
 	position: absolute;
 	top: 10px;
 	right: 10px;
-	opacity: 0.3;
+	opacity: 0.2;
+	text-shadow: 1px 1px 2px rgb(0 0 0 / 20%)
 }
 
 .viewer-3d-container {
