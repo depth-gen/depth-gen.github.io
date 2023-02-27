@@ -1,5 +1,422 @@
 <html>
+<head>
+<title>DepthGen</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<link type="text/css" rel="stylesheet" href="main.css">
+</head>
 <body>
-Coming up...
+  <div class="container">
+    <p class="title">Monocular Depth Estimation using Diffusion Models</p>
+
+    <p class="author">
+        <span class="author">Saurabh&nbsp;Saxena</span>
+        <span class="author">Abhishek&nbsp;Kar</span>
+        <span class="author">Mohammad&nbsp;Norouzi</span>
+        <span class="author">David&nbsp;J.&nbsp;Fleet</span>
+    </p>
+
+    <p class="affiliations">
+      <a href="https://research.google.com/">
+        <img src="assets/GoogleAI_logo.png" height="48" alt="">
+      </a>
+      <a href="https://research.google.com/">
+        Google Research
+      </a>
+    </p>
+
+    <div class="paper-link">
+      [<a href="">Paper</a>]
+    </div>
+
+    <div class="text-to-3d-examples">
+
+      <!-- <div class="text-to-3d-example">
+        <div class="image-depth-container">
+          <img src="assets/kitchen/image1.jpg" class="text-to-3d-image" id="image1">
+          <img src="assets/kitchen/depth1.png" class="text-to-3d-image" id="depth1">
+        </div>
+        <div>
+          <p class="text-to-3d-caption">Caption: A kitchen.</p>
+        </div>
+      </div> -->
+
+      <div class="text-to-3d-example">
+        <div class="image-depth-container">
+          <img src="assets/meeting/image1.jpg" class="text-to-3d-image" id="image2">
+          <img src="assets/meeting/depth1.png" class="text-to-3d-image" id="depth2">
+        </div>
+        <div>
+          <p class="text-to-3d-caption">Caption: A meeting room.</p>
+        </div>
+      </div>
+    <!-- </div> -->
+
+    <!-- <div class="text-to-3d-examples"> -->
+
+      <!-- <div class="text-to-3d-example">
+        <div class="image-depth-container">
+          <img src="assets/bedroom/image1.jpg" class="text-to-3d-image" id="image3">
+          <img src="assets/bedroom/depth1.jpg" class="text-to-3d-image" id="depth3">
+        </div>
+        <div>
+          <p class="text-to-3d-caption">Caption: A bedroom.</p>
+        </div>
+      </div> -->
+
+      <div class="text-to-3d-example">
+        <div class="image-depth-container">
+          <img src="assets/living/image1.jpg" class="text-to-3d-image" id="image4">
+          <img src="assets/living/depth1.jpg" class="text-to-3d-image" id="depth4">
+        </div>
+        <div>
+          <p class="text-to-3d-caption">Caption: A living room.</p>
+        </div>
+      </div>
+    </div>
+
+    <p><span class="section">Abstract</span> </p>
+    <p>
+      We formulate monocular depth estimation using generative diffusion models, inspired by their recent successes in high fidelity image generation.
+      We introduce several innovations to address problems arising due to noisy, incomplete depth maps in the training data such as <em>step-unrolled denoising diffusion</em>, use of an L<sub>1</sub> loss, and depth infilling during training.
+  To cope with the limited availability of data for supervised training, we leverage pre-training on self-supervised image-to-image translation tasks.
+  Despite the simplicity of the approach, with a generic loss and architecture, our <em>DepthGen</em> model achieves SOTA performance on the indoor NYU dataset, and near SOTA results on the outdoor KITTI dataset.
+  Further, with a multimodal posterior, <em>DepthGen</em> naturally represents depth ambiguity (e.g., from transparent  surfaces), and the model's support for imputation, combined with it's robust zero-shot performance, enables a simple but effective text-to-3D pipeline.<br>
+    </p>
+
+
+    <p class="section" id="results">Results</p>
+
+    <div class="mono-depth-results-container">
+      <div class="nyu-img-comp-container">
+        <div class="img-comp-img img-comp-base">
+          <img src="assets/nyu_samples/pred3.png" class="nyu-image">
+        </div>
+        <div class="img-comp-img img-comp-overlay">
+          <img src="assets/nyu_samples/image3.png" class="nyu-image">
+        </div>
+      </div>
+
+      <!-- <div class="nyu-img-comp-container">
+        <div class="img-comp-img">
+          <img src="assets/nyu_samples/pred5.png" class="nyu-image">
+        </div>
+        <div class="img-comp-img img-comp-overlay">
+          <img src="assets/nyu_samples/image5.png" class="nyu-image">
+        </div>
+      </div> -->
+
+      <div>
+        <div class="kitti-img-comp-container">
+          <div class="img-comp-img img-comp-base">
+            <img src="assets/kitti_samples/pred.png" class="kitti-image">
+          </div>
+          <div class="img-comp-img img-comp-overlay">
+            <img src="assets/kitti_samples/image.png" class="kitti-image">
+          </div>
+        </div>
+        <!-- <div class="kitti-img-comp-container">
+          <div class="img-comp-img">
+            <img src="assets/kitti_samples/pred1.png" class="kitti-image">
+          </div>
+          <div class="img-comp-img img-comp-overlay">
+            <img src="assets/kitti_samples/image1.png" class="kitti-image">
+          </div>
+        </div>
+        <div class="kitti-img-comp-container">
+          <div class="img-comp-img">
+            <img src="assets/kitti_samples/pred4.png" class="kitti-image">
+          </div>
+          <div class="img-comp-img img-comp-overlay">
+            <img src="assets/kitti_samples/image4.png" class="kitti-image">
+          </div>
+        </div> -->
+      </div>
+
+    </div>
+
+    <p>
+    <em>DepthGen</em> achieves SOTA absolute relative error of 0.074 on the indoor NYU depth v2 dataset and a competitive relative error of 0.064 on the outdoor KITTI dataset.
+    </p>
+
+    <p class="section" id="text-to-3d">Text to 3D</p>
+
+
+
+    <video playsinline autoplay muted loop class="text-to-3d-video">
+      <source src="assets/text_to_3d.mp4" type="video/mp4" />
+    </video>
+
+    <p>
+    We combine <em>DepthGen</em> with off-the-shelf text-to-image (<a href="https://imagen.research.google">Imagen</a>) and text-conditioned image completion (<a href="https://imagen.research.google/editor">Imagen Editor</a>) models to build a simple text-to-3D pipeline as illustrated in the figure above.
+    </p>
+
+    <div class="viewers">
+      <div class="viewer-3d-container">
+        <div id="kitchen" class="viewer-3d">
+        </div>
+        <div>
+          <p>A kitchen.</p>
+        </div>
+      </div>
+      <div class="viewer-3d-container">
+        <div id="bedroom" class="viewer-3d">
+        </div>
+        <div>
+          <p>A bedroom.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <p class="section" id="BibTeX">BibTeX</p>
+
+    <blockquote>
+    <pre>
+@article{saxena2023monocular,
+    title={Monocular Depth Estimation using Diffusion Models},
+    author={},
+    journal={},
+    year={2023},
+}
+    </pre>
+    </blockquote>
+
+
+  </div>
+
+  <script>
+
+  function text_to_3d_update(image_id, depth_id, scene, index) {
+    let image = document.getElementById(image_id);
+    image_ext = image.getAttribute("src").split(".")[1]
+    image.setAttribute("src", "assets/" + scene + "/image" + index + "." + image_ext)
+    let depth = document.getElementById(depth_id);
+    depth_ext = depth.getAttribute("src").split(".")[1]
+    depth.setAttribute("src", "assets/" + scene + "/depth" + index + "." + depth_ext)
+  }
+
+  var next_index = 2;
+  var max_index = 4;
+  function text_to_3d_update_step() {
+    // text_to_3d_update("image1", "depth1", "kitchen", next_index);
+    text_to_3d_update("image2", "depth2", "meeting", next_index);
+    // text_to_3d_update("image3", "depth3", "bedroom", next_index);
+    text_to_3d_update("image4", "depth4", "living", next_index);
+    next_index += 1;
+    if (next_index == max_index + 1) {
+      next_index = 1
+    }
+  }
+
+  setInterval(text_to_3d_update_step, 500);
+
+  </script>
+
+  <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+
+  <script type="module">
+
+    import * as THREE from "https://unpkg.com/three?module";
+
+    import { OrbitControls } from "https://unpkg.com/three/examples/jsm/controls/OrbitControls.js?module";
+    import { PCDLoader } from 'https://unpkg.com/three/examples/jsm/loaders/PCDLoader.js?module';
+
+    let cameras = [], scenes = [], renderers = [];
+    // let path = "assets/kitchen_every_10.pcd";
+    // let path = "assets/bedroom_every_10.pcd";
+    let renderer_elements = document.getElementsByClassName("viewer-3d");
+    let metadata = {
+      "kitchen": {
+        "path": "assets/kitchen_every_10.pcd",
+        "posx": 3,
+        "posy": 3,
+        "posz": 9,
+        "rotx": -0.25,
+        "roty": 0.5,
+        "rotz": 0.1,
+      },
+      "bedroom": {
+        "path": "assets/bedroom_every_10.pcd",
+        "posx": -0.07,
+        "posy": 0.41,
+        "posz": 10,
+        "rotx": -0.04,
+        "roty": 0.0,
+        "rotz": 0.0,
+      },
+    };
+
+    init();
+    render();
+
+    function init() {
+      for (let i = 0; i < renderer_elements.length; i++) {
+        let renderer_element = renderer_elements[i];
+        let data = metadata[renderer_element.id];
+        let path = data["path"];
+        let renderer = new THREE.WebGLRenderer( { antialias: true } );
+        renderers.push(renderer);
+        renderer.setPixelRatio( window.devicePixelRatio );
+        // renderer.setSize( renderer_element.clientWidth, renderer_element.clientHeight );
+        renderer.setSize( renderer_element.clientWidth, renderer_element.clientWidth );
+
+        renderer_element.appendChild( renderer.domElement );
+
+        let scene = new THREE.Scene();
+        scenes.push(scene);
+        scene.background = new THREE.Color( 0xeeeeee );
+
+        let camera = new THREE.PerspectiveCamera( 30, 1, 0.01, 40 );
+        cameras.push(camera);
+        // camera.position.set( 0, 0, 10 );
+        camera.position.set( data["posx"], data["posy"], data["posz"] );
+        camera.rotation.x = data["rotx"];
+        camera.rotation.y = data["roty"];
+        camera.rotation.z = data["rotz"];
+
+        scene.add( camera );
+
+        const controls = new OrbitControls( camera, renderer.domElement );
+        controls.addEventListener( 'change', render ); // use if there is no animation loop
+        controls.minDistance = 0.5;
+        controls.maxDistance = 10;
+
+        //scene.add( new THREE.AxesHelper( 1 ) );
+
+        const loader = new PCDLoader();
+        loader.load( path, function ( points ) {
+
+          points.geometry.center();
+          points.geometry.rotateX( Math.PI );
+          points.name = path;
+          points.material.size *= 8;
+          scene.add( points );
+
+          // const axesHelper = new THREE.AxesHelper( 5 );
+          // scene.add( axesHelper );
+
+          render();
+
+        } );
+      }
+
+      // renderer_element.addEventListener( 'resize', onWindowResize );
+
+      // renderer_element.addEventListener( 'keypress', keyboard );
+
+    }
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        for (const renderer of renderers) {
+          renderer.setSize( entry.contentRect.width, entry.contentRect.width );
+        }
+      }
+    });
+
+    for (const renderer_element of renderer_elements) {
+      resizeObserver.observe(renderer_element);
+    }
+
+    function render() {
+      for (let i = 0; i < scenes.length; i++) {
+        renderers[i].render( scenes[i], cameras[i] );
+      }
+    }
+
+    const imageDepthResizeObserver = new ResizeObserver((entries) => {
+      console.log("Resized");
+      initComparisons(false);
+    });
+
+    imageDepthResizeObserver.observe(document.getElementsByClassName('mono-depth-results-container')[0]);
+
+    var baseImages = document.getElementsByClassName("img-comp-base");
+    var overlayImages = document.getElementsByClassName("img-comp-overlay");
+    // Sliders for image / depth comparison.
+    function initComparisons(createSlider) {
+      var i;
+      for (i = 0; i < overlayImages.length; i++) {
+        /* Once for each "overlay" element:
+        pass the "overlay" element as a parameter when executing the compareImages function: */
+        compareImages(overlayImages[i], baseImages[i]);
+      }
+      function compareImages(img, base_img) {
+        var slider, img, clicked = 0, w, h;
+        /* Get the width and height of the img element */
+        w = base_img.offsetWidth;
+        h = base_img.offsetHeight;
+        /* Set the width of the img element to 50%: */
+        img.style.width = (w / 2) + "px";
+        /* Create slider: */
+        if (createSlider) {
+          slider = document.createElement("DIV");
+          slider.setAttribute("class", "img-comp-slider");
+          /* Insert slider */
+          img.parentElement.insertBefore(slider, img);
+        } else {
+          slider = img.parentElement.getElementsByClassName("img-comp-slider")[0];
+        }
+        /* Position the slider in the middle: */
+        slider.style.top = (h / 2) - (slider.offsetHeight / 2) + "px";
+        slider.style.left = (w / 2) - (slider.offsetWidth / 2) + "px";
+        /* Execute a function when the mouse button is pressed: */
+        slider.addEventListener("mousedown", slideReady);
+        /* And another function when the mouse button is released: */
+        window.addEventListener("mouseup", slideFinish);
+        /* Or touched (for touch screens: */
+        slider.addEventListener("touchstart", slideReady);
+         /* And released (for touch screens: */
+        window.addEventListener("touchend", slideFinish);
+        function slideReady(e) {
+          /* Prevent any other actions that may occur when moving over the image: */
+          e.preventDefault();
+          /* The slider is now clicked and ready to move: */
+          clicked = 1;
+          /* Execute a function when the slider is moved: */
+          window.addEventListener("mousemove", slideMove);
+          window.addEventListener("touchmove", slideMove);
+        }
+        function slideFinish() {
+          /* The slider is no longer clicked: */
+          clicked = 0;
+        }
+        function slideMove(e) {
+          var pos;
+          /* If the slider is no longer clicked, exit this function: */
+          if (clicked == 0) return false;
+          /* Get the cursor's x position: */
+          pos = getCursorPos(e)
+          /* Prevent the slider from being positioned outside the image: */
+          if (pos < 0) pos = 0;
+          if (pos > w) pos = w;
+          /* Execute a function that will resize the overlay image according to the cursor: */
+          slide(pos);
+        }
+        function getCursorPos(e) {
+          var a, x = 0;
+          e = (e.changedTouches) ? e.changedTouches[0] : e;
+          /* Get the x positions of the image: */
+          a = img.getBoundingClientRect();
+          /* Calculate the cursor's x coordinate, relative to the image: */
+          x = e.pageX - a.left;
+          /* Consider any page scrolling: */
+          x = x - window.pageXOffset;
+          return x;
+        }
+        function slide(x) {
+          /* Resize the image: */
+          img.style.width = x + "px";
+          /* Position the slider: */
+          slider.style.left = img.offsetWidth - (slider.offsetWidth / 2) + "px";
+        }
+      }
+    }
+
+    initComparisons(true);
+
+  </script>
+
 </body>
 </html>
