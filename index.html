@@ -84,6 +84,11 @@
   Further, with a multimodal posterior, <em>DepthGen</em> naturally represents depth ambiguity (e.g., from transparent  surfaces), and the model's support for imputation, combined with it's robust zero-shot performance, enables a simple but effective text-to-3D pipeline.<br>
     </p>
 
+    <p class="section" id="results">Approach</p>
+    <img src="assets/architecture.svg" class="architecture">
+    <p>
+    Given a groundtruth depth map, we first infill missing depth using nearest neighbor interpolation. Then, following standard diffusion training, we add noise to the depth map and train a neural network to predict the noise given the RGB image and noisy depth map. During finetuning, we unroll one step of the forward pass and replace the groundtruth depth map with the prediction.
+    </p>
 
     <p class="section" id="results">Results</p>
 
