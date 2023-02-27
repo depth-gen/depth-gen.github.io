@@ -159,6 +159,7 @@
     <div class="viewers">
       <div class="viewer-3d-container">
         <div id="kitchen" class="viewer-3d">
+          <span class="viewer-3d-label">3D</span>
         </div>
         <div>
           <p>A kitchen.</p>
@@ -166,6 +167,7 @@
       </div>
       <div class="viewer-3d-container">
         <div id="bedroom" class="viewer-3d">
+          <span class="viewer-3d-label">3D</span>
         </div>
         <div>
           <p>A bedroom.</p>
@@ -269,7 +271,6 @@
         renderer.setPixelRatio( window.devicePixelRatio );
         // renderer.setSize( renderer_element.clientWidth, renderer_element.clientHeight );
         renderer.setSize( renderer_element.clientWidth, renderer_element.clientWidth );
-
         renderer_element.appendChild( renderer.domElement );
 
         let scene = new THREE.Scene();

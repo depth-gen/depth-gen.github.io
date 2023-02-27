@@ -138,6 +138,17 @@ a:hover {
   justify-content: space-between;
 }
 
+.viewer-3d {
+	position: relative;
+}
+
+.viewer-3d-label {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	opacity: 0.3;
+}
+
 .viewer-3d-container {
   width: calc(50% - 5px);
 }
