@@ -332,7 +332,7 @@
 
     const imageDepthResizeObserver = new ResizeObserver((entries) => {
       console.log("Resized");
-      initComparisons(false);
+      initComparisons();
     });
 
     imageDepthResizeObserver.observe(document.getElementsByClassName('mono-depth-results-container')[0]);
@@ -340,7 +340,7 @@
     var baseImages = document.getElementsByClassName("img-comp-base");
     var overlayImages = document.getElementsByClassName("img-comp-overlay");
     // Sliders for image / depth comparison.
-    function initComparisons(createSlider) {
+    function initComparisons() {
       var i;
       for (i = 0; i < overlayImages.length; i++) {
         /* Once for each "overlay" element:
@@ -355,6 +355,7 @@
         /* Set the width of the img element to 50%: */
         img.style.width = (w / 2) + "px";
         /* Create slider: */
+        let createSlider = (img.parentElement.getElementsByClassName('img-comp-slider').length == 0);
         if (createSlider) {
           slider = document.createElement("DIV");
           slider.setAttribute("class", "img-comp-slider");
@@ -419,7 +420,7 @@
       }
     }
 
-    initComparisons(true);
+    initComparisons();
 
   </script>
 
