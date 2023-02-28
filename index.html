@@ -4,8 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 <link type="text/css" rel="stylesheet" href="main.css">
-</head>
-<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,100,0,0" /></head>
   <div class="container">
     <p class="title">Monocular Depth Estimation using Diffusion Models</p>
 
@@ -41,15 +40,6 @@
         </div>
       </div> -->
 
-      <div class="text-to-3d-example">
-        <div class="text-to-3d-caption">
-          <p>Caption: A meeting room</p>
-        </div>
-        <div class="image-depth-container">
-          <img src="assets/meeting/image1.jpg" class="text-to-3d-image" id="image2">
-          <img src="assets/meeting/depth1.png" class="text-to-3d-image" id="depth2">
-        </div>
-      </div>
     <!-- </div> -->
 
     <!-- <div class="text-to-3d-examples"> -->
@@ -64,15 +54,45 @@
         </div>
       </div> -->
 
-      <div class="text-to-3d-example">
-        <div class="text-to-3d-caption">
+      <span class="text-to-3d-example">
+        <span class="text-to-3d-caption">
+          <p>Caption: A meeting room</p>
+        </span>
+        <span class="image-depth-container">
+          <img src="assets/meeting/image1.jpg" class="text-to-3d-image" id="image2"><img src="assets/meeting/depth1.png" class="text-to-3d-image" id="depth2">
+        </span>
+      </span>
+
+      <span class="text-to-3d-example">
+        <span class="text-to-3d-caption">
           <p>Caption: A living room</p>
-        </div>
-        <div class="image-depth-container">
-          <img src="assets/living/image1.jpg" class="text-to-3d-image" id="image4">
-          <img src="assets/living/depth1.jpg" class="text-to-3d-image" id="depth4">
-        </div>
-      </div>
+        </span>
+        <span class="image-depth-container">
+          <img src="assets/living/image1.jpg" class="text-to-3d-image" id="image4"><img src="assets/living/depth1.jpg" class="text-to-3d-image" id="depth4">
+        </span>
+      </span>
+
+      <span class="text-to-3d-example">
+        <span class="text-to-3d-caption">
+          <p>Caption: A library</p>
+        </span>
+        <span class="image-depth-container">
+          <img src="assets/library/image1.png" class="text-to-3d-image" id="image5"><img src="assets/library/depth1.png" class="text-to-3d-image" id="depth5">
+        </span>
+      </span>
+
+      <span class="text-to-3d-example last">
+        <span class="text-to-3d-caption">
+          <p>Caption: A movie theatre</p>
+        </span>
+        <span class="image-depth-container">
+          <img src="assets/theatre/image1.jpg" class="text-to-3d-image" id="image6"><img src="assets/theatre/depth1.png" class="text-to-3d-image" id="depth6">
+        </span>
+      </span>
+
+    </div>
+    <div class="teaser-expand">
+      <span class="material-symbols-outlined" onclick="teaser_expand_contract(this)">expand_more</span>
     </div>
     <div class="teaser-caption">
       <p>Text to RGB-D results from our proposed system</p>
@@ -198,6 +218,17 @@ Further, with a multimodal posterior, <em>DepthGen</em> naturally represents dep
 
   <script>
 
+  const teaserContainer = document.getElementsByClassName("text-to-3d-examples")[0];
+  function teaser_expand_contract(element) {
+    if (element.textContent == "expand_more") {
+      teaserContainer.style.setProperty("white-space", "unset");
+      element.textContent = "expand_less";
+    } else {
+      teaserContainer.style.setProperty("white-space", "nowrap");
+      element.textContent = "expand_more";
+    }
+  }
+
   function text_to_3d_update(image_id, depth_id, scene, index) {
     let image = document.getElementById(image_id);
     image_ext = image.getAttribute("src").split(".")[1]
@@ -225,6 +256,8 @@ Further, with a multimodal posterior, <em>DepthGen</em> naturally represents dep
     text_to_3d_update("image2", "depth2", "meeting", cur_index);
     // text_to_3d_update("image3", "depth3", "bedroom", cur_index);
     text_to_3d_update("image4", "depth4", "living", cur_index);
+    text_to_3d_update("image5", "depth5", "library", cur_index);
+    text_to_3d_update("image6", "depth6", "theatre", cur_index);
   }
 
   setInterval(text_to_3d_update_step, 500);

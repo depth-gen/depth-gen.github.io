@@ -86,7 +86,7 @@ a:hover {
 }
 
 .text-to-3d-image {
-  width: 50%;
+  width: calc(25% - 5px);
 }
 
 .teaser-caption {
@@ -114,29 +114,55 @@ a:hover {
 }
 
 .image-depth-container {
-  display: flex;
+  /* display: flex; */
 }
 
 .text-to-3d-examples {
-  display: flex;
-  margin-left: -10px;
-  margin-right: -10px;
+  /* display: flex; */
+  /* margin-left: -10px; */
+  /* margin-right: -10px; */
+	overflow: auto;
+	white-space: nowrap;
 }
 
 .text-to-3d-example {
-  padding-left: 10px;
+  /* padding-left: 10px; */
   padding-right: 10px;
 	position: relative;
+}
+
+.text-to-3d-example.last {
+	padding-right: 0px;
 }
 
 .text-to-3d-caption {
 	opacity: 0.5;
 	color: white;
 	right: 20px;
-	bottom: -10px;
+	bottom: 5px;
 	position: absolute;
 	text-align: right;
 	font-size: 80%;
+}
+
+.text-to-3d-caption p {
+	margin: 0;
+}
+
+.teaser-expand {
+	text-align: center;
+}
+
+.material-symbols-outlined {
+	cursor: pointer;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 100,
+  'GRAD' 0,
+  'opsz' 40
 }
 
 .text-to-3d-video {
