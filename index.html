@@ -207,17 +207,24 @@ Further, with a multimodal posterior, <em>DepthGen</em> naturally represents dep
     depth.setAttribute("src", "assets/" + scene + "/depth" + index + "." + depth_ext)
   }
 
-  var next_index = 2;
-  var max_index = 4;
+  const min_index = 1;
+  const max_index = 4;
+  var cur_index = min_index;
+  var forward = true;
+
   function text_to_3d_update_step() {
-    // text_to_3d_update("image1", "depth1", "kitchen", next_index);
-    text_to_3d_update("image2", "depth2", "meeting", next_index);
-    // text_to_3d_update("image3", "depth3", "bedroom", next_index);
-    text_to_3d_update("image4", "depth4", "living", next_index);
-    next_index += 1;
-    if (next_index == max_index + 1) {
-      next_index = 1
+    if (forward) {
+      cur_index = cur_index + 1;
+    } else {
+      cur_index = cur_index - 1;
     }
+    if (cur_index == max_index || cur_index == min_index) {
+      forward = !forward;
+    }
+    // text_to_3d_update("image1", "depth1", "kitchen", cur_index);
+    text_to_3d_update("image2", "depth2", "meeting", cur_index);
+    // text_to_3d_update("image3", "depth3", "bedroom", cur_index);
+    text_to_3d_update("image4", "depth4", "living", cur_index);
   }
 
   setInterval(text_to_3d_update_step, 500);
