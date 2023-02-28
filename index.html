@@ -100,8 +100,8 @@
 
     <p class="section">Abstract</p>
     <p>
-We formulate monocular depth estimation using generative diffusion models, inspired by their recent successes in high fidelity image generation.
-We introduce several innovations to address problems arising due to noisy, incomplete depth maps in the training data such as <em>step-unrolled denoising diffusion</em>, use of an L<sub>1</sub> loss, and depth infilling during training.
+We formulate monocular depth estimation using denoising diffusion models, inspired by their recent successes in high fidelity image generation.
+To that end, we introduce innovations to address problems arising due to noisy, incomplete depth maps in the training data such as <em>step-unrolled denoising diffusion</em>, use of an L<sub>1</sub> loss, and depth infilling during training.
 To cope with the limited availability of data for supervised training, we leverage pre-training on self-supervised image-to-image translation tasks.
 Despite the simplicity of the approach, with a generic loss and architecture, our <em>DepthGen</em> model achieves SOTA performance on the indoor NYU dataset, and near SOTA results on the outdoor KITTI dataset.
 Further, with a multimodal posterior, <em>DepthGen</em> naturally represents depth ambiguity (e.g., from transparent  surfaces), and the model's support for imputation, combined with it's robust zero-shot performance, enables a simple but effective text-to-3D pipeline.<br>
