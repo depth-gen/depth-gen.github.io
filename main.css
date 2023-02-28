@@ -135,6 +135,10 @@ a:hover {
 	padding-right: 0px;
 }
 
+.text-to-3d-example.last > .text-to-3d-caption {
+	right: 10px;
+}
+
 .text-to-3d-caption {
 	opacity: 0.5;
 	color: white;
