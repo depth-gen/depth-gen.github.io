@@ -29,65 +29,40 @@
     </div>
 
     <div class="text-to-3d-examples">
-
-      <!-- <div class="text-to-3d-example">
-        <div class="image-depth-container">
-          <img src="assets/kitchen/image1.jpg" class="text-to-3d-image" id="image1">
-          <img src="assets/kitchen/depth1.png" class="text-to-3d-image" id="depth1">
-        </div>
-        <div>
-          <p class="text-to-3d-caption">Caption: A kitchen.</p>
-        </div>
-      </div> -->
-
-    <!-- </div> -->
-
-    <!-- <div class="text-to-3d-examples"> -->
-
-      <!-- <div class="text-to-3d-example">
-        <div class="image-depth-container">
-          <img src="assets/bedroom/image1.jpg" class="text-to-3d-image" id="image3">
-          <img src="assets/bedroom/depth1.jpg" class="text-to-3d-image" id="depth3">
-        </div>
-        <div>
-          <p class="text-to-3d-caption">Caption: A bedroom.</p>
-        </div>
-      </div> -->
-
-      <span class="text-to-3d-example">
-        <span class="text-to-3d-caption">
-          <p>Caption: A meeting room</p>
-        </span>
-        <span class="image-depth-container">
-          <img src="assets/meeting/image1.jpg" class="text-to-3d-image" id="image2"><img src="assets/meeting/depth1.png" class="text-to-3d-image" id="depth2">
-        </span>
-      </span>
-
       <span class="text-to-3d-example">
         <span class="text-to-3d-caption">
           <p>Caption: A living room</p>
         </span>
-        <span class="image-depth-container">
-          <img src="assets/living/image1.jpg" class="text-to-3d-image" id="image4"><img src="assets/living/depth1.jpg" class="text-to-3d-image" id="depth4">
-        </span>
+        <video playsinline autoplay muted loop class="teaser-video">
+          <source src="assets/living.mp4" type="video/mp4" />
+        </video>
       </span>
 
       <span class="text-to-3d-example">
         <span class="text-to-3d-caption">
           <p>Caption: A library</p>
         </span>
-        <span class="image-depth-container">
-          <img src="assets/library/image1.png" class="text-to-3d-image" id="image5"><img src="assets/library/depth1.png" class="text-to-3d-image" id="depth5">
+        <video playsinline autoplay muted loop class="teaser-video">
+          <source src="assets/library.mp4" type="video/mp4" />
+        </video>
+      </span>
+
+      <span class="text-to-3d-example">
+        <span class="text-to-3d-caption">
+          <p>Caption: A meeting room</p>
         </span>
+        <video playsinline autoplay muted loop class="teaser-video">
+          <source src="assets/meeting.mp4" type="video/mp4" />
+        </video>
       </span>
 
       <span class="text-to-3d-example last">
         <span class="text-to-3d-caption">
           <p>Caption: A movie theatre</p>
         </span>
-        <span class="image-depth-container">
-          <img src="assets/theatre/image1.jpg" class="text-to-3d-image" id="image6"><img src="assets/theatre/depth1.png" class="text-to-3d-image" id="depth6">
-        </span>
+        <video playsinline autoplay muted loop class="teaser-video">
+          <source src="assets/theatre.mp4" type="video/mp4" />
+        </video>
       </span>
 
     </div>
@@ -230,40 +205,6 @@ Further, with a multimodal posterior, <em>DepthGen</em> naturally represents dep
       element.textContent = "expand_more";
     }
   }
-
-  function text_to_3d_update(image_id, depth_id, scene, index) {
-    let image = document.getElementById(image_id);
-    image_ext = image.getAttribute("src").split(".")[1]
-    image.setAttribute("src", "assets/" + scene + "/image" + index + "." + image_ext)
-    let depth = document.getElementById(depth_id);
-    depth_ext = depth.getAttribute("src").split(".")[1]
-    depth.setAttribute("src", "assets/" + scene + "/depth" + index + "." + depth_ext)
-  }
-
-  const min_index = 1;
-  const max_index = 4;
-  var cur_index = min_index;
-  var forward = true;
-
-  function text_to_3d_update_step() {
-    if (forward) {
-      cur_index = cur_index + 1;
-    } else {
-      cur_index = cur_index - 1;
-    }
-    if (cur_index == max_index || cur_index == min_index) {
-      forward = !forward;
-    }
-    // text_to_3d_update("image1", "depth1", "kitchen", cur_index);
-    text_to_3d_update("image2", "depth2", "meeting", cur_index);
-    // text_to_3d_update("image3", "depth3", "bedroom", cur_index);
-    text_to_3d_update("image4", "depth4", "living", cur_index);
-    text_to_3d_update("image5", "depth5", "library", cur_index);
-    text_to_3d_update("image6", "depth6", "theatre", cur_index);
-  }
-
-  setInterval(text_to_3d_update_step, 500);
-
   </script>
 
   <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
@@ -315,7 +256,6 @@ Further, with a multimodal posterior, <em>DepthGen</em> naturally represents dep
         let renderer = new THREE.WebGLRenderer( { antialias: true } );
         renderers.push(renderer);
         renderer.setPixelRatio( window.devicePixelRatio );
-        // renderer.setSize( renderer_element.clientWidth, renderer_element.clientHeight );
         renderer.setSize( renderer_element.clientWidth, renderer_element.clientWidth );
         renderer_element.appendChild( renderer.domElement );
 
@@ -338,8 +278,6 @@ Further, with a multimodal posterior, <em>DepthGen</em> naturally represents dep
         controls.minDistance = 0.5;
         controls.maxDistance = 10;
 
-        //scene.add( new THREE.AxesHelper( 1 ) );
-
         const loader = new PCDLoader();
         loader.load( path, function ( points ) {
 
@@ -348,19 +286,9 @@ Further, with a multimodal posterior, <em>DepthGen</em> naturally represents dep
           points.name = path;
           points.material.size *= 8;
           scene.add( points );
-
-          // const axesHelper = new THREE.AxesHelper( 5 );
-          // scene.add( axesHelper );
-
           render();
-
         } );
       }
-
-      // renderer_element.addEventListener( 'resize', onWindowResize );
-
-      // renderer_element.addEventListener( 'keypress', keyboard );
-
     }
 
     const resizeObserver = new ResizeObserver((entries) => {
